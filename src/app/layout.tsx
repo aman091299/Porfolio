@@ -25,10 +25,10 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   title: `${site.name} | ${site.role}`,
   description:
-    "Aman Singh is a full stack developer building web apps with React, Next.js, Node.js and MongoDB, plus AI features with LLMs and RAG.",
+    "Aman Singh is a senior full stack developer building websites and mobile apps with React, Next.js, React Native, Node.js and MongoDB, plus AI features with LLMs and RAG.",
   openGraph: {
     title: `${site.name} | ${site.role}`,
-    description: "Full stack developer working with React, Next.js, Node.js and AI.",
+    description: "Senior full stack developer building websites and mobile apps with React, Next.js, React Native, Node.js and AI.",
     type: "website",
   },
 };

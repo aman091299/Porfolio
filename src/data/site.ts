@@ -2,15 +2,14 @@ export const site = {
   name: "Aman Singh",
   firstName: "Aman",
   lastName: "Singh",
-  role: "Full Stack Developer",
+  role: "Senior Full Stack Developer",
   company: "Atravelq",
   since: "Apr 2026 - Present",
   location: "India",
   // Shown in the live clock at the bottom-left corner.
   timeZone: "Asia/Kolkata",
   timeZoneLabel: "IN",
-  tagline: "Full stack developer building web apps end to end, from the database to the pixel, plus AI features.",
-  status: "Building: full stack @ Atravelq",
+  tagline: "Senior full stack developer building websites and mobile apps end to end, from the database to the pixel, plus AI features.",
   // Shows the "Open to opportunities" badge and the "Available" chip on the photo. Set to false to hide them.
   openToWork: true,
   stats: [

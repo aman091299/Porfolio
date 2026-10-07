@@ -1,93 +1,93 @@
 @import "tailwindcss";
 
-/* `dark:` follows the same rule as the tokens below: saved choice first, then the system setting. */
-@custom-variant dark {
-  &:where([data-theme="dark"], [data-theme="dark"] *) {
-    @slot;
-  }
-  @media (prefers-color-scheme: dark) {
-    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
-      @slot;
-    }
-  }
-}
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
-/*
-  Theme tokens. Light is the base, dark applies when the visitor's system
-  prefers it or when they pick it with the toggle (data-theme on <html>).
-*/
+/* Black and cyan by default; the nav toggle switches to the light theme. */
 :root {
-  --bg: #f4f5f2;
-  --card: #ffffff;
-  --fg: #0e0f11;
-  --muted: #55585f;
-  --line: #dcdfd8;
-  --accent: #c8f04b;
-  --accent-fg: #0e0f11;
-  --accent-ink: #4a6800;
-  --ring: #0e0f11;
-  --shadow: 18 22 12;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0c0d0f;
-    --card: #141518;
-    --fg: #f1f2ee;
-    --muted: #a3a6ad;
-    --line: #26282d;
-    --accent-ink: #c8f04b;
-    --ring: #c8f04b;
-    --shadow: 0 0 0;
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #0c0d0f;
-  --card: #141518;
-  --fg: #f1f2ee;
-  --muted: #a3a6ad;
-  --line: #26282d;
-  --accent-ink: #c8f04b;
-  --ring: #c8f04b;
-  --shadow: 0 0 0;
+  --bg: #010202;
+  --panel: #0c1112;
+  --panel-2: #121a1b;
+  --fg: #eef6f7;
+  --muted: #8a979a;
+  --faint: #5d686b;
+  --line: rgb(255 255 255 / 0.08);
+  --accent: #67e3f9;
+  --accent-ink: #67e3f9;
+  --accent-fg: #021013;
+  --live: #ff5c5c;
+  /* Starfield colours as "r g b". */
+  --star: 225 245 248;
+  --link: 103 227 249;
+  --glow: 0 0 28px rgb(255 255 255 / 0.14), 0 0 2px rgb(255 255 255 / 0.2);
   color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f2f7f8;
+  --panel: #ffffff;
+  --panel-2: #e9f1f2;
+  --fg: #061214;
+  --muted: #4b595d;
+  --faint: #6f7d81;
+  --line: rgb(6 18 20 / 0.1);
+  --accent-ink: #00768a;
+  --star: 16 44 52;
+  --link: 0 118 138;
+  --glow: none;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-card: var(--card);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-line: var(--line);
   --color-accent: var(--accent);
-  --color-accent-fg: var(--accent-fg);
   --color-accent-ink: var(--accent-ink);
+  --color-accent-fg: var(--accent-fg);
+  --color-live: var(--live);
   /* Names the Componentry components expect. */
   --color-background: var(--bg);
   --color-foreground: var(--fg);
 
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
-  scrollbar-color: var(--line) transparent;
+  scroll-padding-top: 6rem;
+  scrollbar-color: color-mix(in srgb, var(--accent) 35%, transparent) transparent;
 }
 
 body {
-  /* AOS slides some blocks in from the side; never let that cause sideways scroll. */
   overflow-x: clip;
   background: var(--bg);
   color: var(--fg);
   caret-color: var(--accent-ink);
   -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+/* Faint grid plus a cyan haze in the corners, like light leaking onto the page. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 100% 0%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 70%),
+    radial-gradient(50rem 40rem at 0% 100%, color-mix(in srgb, var(--accent) 5%, transparent), transparent 70%),
+    linear-gradient(to right, color-mix(in srgb, var(--fg) 3%, transparent) 1px, transparent 1px) 0 0 / 112px 112px,
+    linear-gradient(to bottom, color-mix(in srgb, var(--fg) 3%, transparent) 1px, transparent 1px) 0 0 / 112px 112px;
 }
 
 ::selection {
@@ -96,35 +96,102 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
-/* Lime block behind a word or line, the signature mark of the page. */
-.highlight {
-  display: inline-block;
-  background: var(--accent);
-  color: var(--accent-fg);
-  padding: 0 0.12em;
-  box-decoration-break: clone;
-}
-
-/* Hero entrance: the lime block wipes in after the headline lands. */
-@keyframes wipe-in {
-  from {
-    clip-path: inset(0 100% 0 0);
+/* In the components layer so Tailwind utilities can still override them. */
+@layer components {
+  /* Small uppercase mono label used across the page. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
-  to {
-    clip-path: inset(0 0 0 0);
+
+  .glow {
+    text-shadow: var(--glow);
+  }
+
+  .panel {
+    background: color-mix(in srgb, var(--panel) 90%, transparent);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 3rem;
+    padding: 0 1.6rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 15px;
+    white-space: nowrap;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-fg);
+    box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 14px 40px -10px color-mix(in srgb, var(--accent) 90%, transparent);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--panel) 70%, transparent);
+    color: var(--fg);
+  }
+
+  .btn-outline:hover {
+    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+
+  .field {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--panel-2);
+    padding: 0.8rem 1rem;
+    font-size: 15px;
+    color: var(--fg);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .field::placeholder {
+    color: var(--faint);
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--accent-ink);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
   }
 }
 
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.98);
-    filter: blur(8px);
+    transform: translateY(18px);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
@@ -133,13 +200,40 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .hero-wipe {
-    animation: wipe-in 0.9s var(--ease-out-expo) 0.55s both;
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(10px);
   }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
 
+@keyframes live-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 5px transparent;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
   .hero-rise {
     animation: rise-in 1s var(--ease-out-expo) both;
+  }
+
+  .hero-card {
+    animation: card-in 1.2s var(--ease-out-expo) 0.2s both;
+  }
+
+  .live-dot {
+    animation: live-pulse 2s ease-in-out infinite;
   }
 }
 

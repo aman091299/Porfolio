@@ -1,60 +1,81 @@
 import { PiArrowUp } from "react-icons/pi";
 
+import { projects } from "@/data/projects";
 import { navLinks, site } from "@/data/site";
 import { socialLinks } from "./Contact";
-import { Container } from "./primitives";
+import { Container, Logo } from "./primitives";
 
-export default function Footer() {
+function Column({ title, links }: { title: string; links: { href: string; label: string; external?: boolean }[] }) {
   return (
-    <footer id="site-footer" className="overflow-hidden border-t border-line pt-16">
-      <Container className="grid gap-10 md:grid-cols-12">
-        <p className="max-w-[34ch] text-muted md:col-span-5">
-          {site.name}, {site.role.toLowerCase()} building with React, Next.js, Node.js and AI.
-        </p>
-
-        <nav aria-label="Footer" className="flex flex-col gap-3 md:col-span-3">
-          {[...navLinks, { href: "#contact", label: "Contact" }].map((link) => (
-            <a key={link.href} href={link.href} className="w-fit transition hover:text-accent-ink">
+    <div>
+      <p className="label text-[10px] text-fg">{title}</p>
+      <ul className="mt-4 space-y-2.5">
+        {links.map((link) => (
+          <li key={link.href}>
+            <a
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noreferrer" : undefined}
+              className="text-sm text-muted transition hover:text-accent-ink"
+            >
               {link.label}
             </a>
-          ))}
-        </nav>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-        <div className="flex flex-col gap-3 md:col-span-4">
-          {socialLinks.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              className="w-fit transition hover:text-accent-ink"
-            >
-              {label}
-            </a>
-          ))}
+export default function Footer() {
+  const liveProjects = projects.filter((p) => p.liveUrl).slice(0, 5);
+
+  return (
+    <footer className="border-t border-line pb-24 pt-16 md:pb-20">
+      <Container>
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Logo />
+            <p className="mt-4 max-w-[36ch] text-sm leading-relaxed text-muted">{site.tagline}</p>
+            <div className="mt-6 flex gap-2">
+              {socialLinks.map(({ href, label, Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="grid size-10 place-items-center rounded-full border border-line text-muted transition hover:border-accent hover:text-accent-ink"
+                >
+                  <Icon className="size-[18px]" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7">
+            <Column title="Navigation" links={navLinks} />
+            <Column
+              title="Projects"
+              links={liveProjects.map((p) => ({ href: p.liveUrl!, label: p.title, external: true }))}
+            />
+            <Column
+              title="Connect"
+              links={socialLinks.map((s) => ({ href: s.href, label: s.label, external: true }))}
+            />
+          </div>
+        </div>
+
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6 text-sm text-faint">
+          <p>
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </p>
+          <a href="#top" className="inline-flex items-center gap-1.5 transition hover:text-accent-ink">
+            Back to top
+            <PiArrowUp className="size-4" />
+          </a>
         </div>
       </Container>
-
-      <Container className="mt-14 flex items-center justify-between gap-6 border-t border-line py-6 text-sm text-muted">
-        <p>
-          © {new Date().getFullYear()} {site.name}
-        </p>
-        <a href="#top" className="inline-flex items-center gap-1.5 transition hover:text-fg">
-          Back to top
-          <PiArrowUp className="size-4" />
-        </a>
-      </Container>
-
-      <p
-        aria-hidden="true"
-        data-aos="fade-up"
-        // The wordmark sits at the very end of the page, so trigger off the footer instead.
-        data-aos-anchor="#site-footer"
-        data-aos-anchor-placement="top-center"
-        className="-mb-[0.14em] select-none whitespace-nowrap text-center font-display text-[20vw] font-extrabold uppercase leading-[0.8] tracking-[-0.02em]"
-      >
-        Aman <span className="highlight">Singh</span>
-      </p>
     </footer>
   );
 }

@@ -1,6 +1,6 @@
 # Aman Singh - Portfolio
 
-Personal portfolio built with Next.js 16 (App Router), TypeScript, Tailwind CSS 4, AOS scroll animations and a few [Componentry](https://github.com/harshjdhv/componentry) components (MIT).
+Personal portfolio built with Next.js 16 (App Router), TypeScript, Tailwind CSS 4, AOS scroll animations, Framer Motion and the Kinetic Text Reveal component from [Componentry](https://github.com/harshjdhv/componentry) (MIT).
 
 ## Run locally
 
@@ -15,16 +15,23 @@ Production build: `npm run build && npm start`.
 
 Everything on the page comes from `src/data/`:
 
-- `site.ts` - name, social links, **email** and resume link. Add your email here and every contact button becomes a mailto link (until then they open LinkedIn).
-- `experience.ts` - jobs on the timeline
-- `projects.ts` - cards in "Selected work" (screenshots live in `src/assets/projects/`)
-- `skills.ts` - skill groups and the words in the scrolling band
+- `site.ts` - name, role, tagline, stats, the "Open to opportunities" switch (`openToWork`), **email**, resume link and social links
+- `experience.ts` - jobs on the timeline (each company has its own accent colour)
+- `projects.ts` - cards in "Featured Projects" (screenshots live in `src/assets/projects/`)
+- `skills.ts` - stack groups with their icons and brand colours
 
-## Where things live
+## Contact form
 
-- `src/app/` - layout (fonts, metadata, theme script), page, global styles and theme tokens, favicon
-- `src/components/` - one file per section (Nav, Hero, TechMarquee, About, Experience, Work, Skills, Contact, Footer)
-- `src/components/ui/` - Componentry components: kinetic text reveal (hero), velocity scroll (tech band), signature (about)
+The form posts to `src/app/api/contact/route.ts`, which emails you through [Resend](https://resend.com).
+Copy `.env.example` to `.env.local` (and add the same variables on Vercel) with your Resend API key and the inbox that should receive messages.
+Until that is set, the form opens the visitor's mail app if `email` is filled in `site.ts`, and otherwise points them to LinkedIn.
 
-Light and dark themes follow the visitor's system setting, and the toggle in the nav remembers their choice.
+## How the page works
+
+- `Starfield` - the drifting constellation behind the page, linking to the cursor.
+- `Hud` - corner readouts (local time, time on page, cursor position) and the scroll bar on the right edge.
+- `CursorRing` - the cyan ring that follows the mouse.
+- Dark (black and cyan) is the default theme; the moon button in the nav switches to light and remembers the choice.
+- One component per section in `src/components/` (Hero, About, Experience, Work, Stack, Contact, Footer).
+
 Animations switch off for visitors who have "reduce motion" turned on.

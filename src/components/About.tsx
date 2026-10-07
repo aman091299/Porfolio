@@ -1,44 +1,83 @@
-import AboutSignature from "./AboutSignature";
-import { Container, SectionHeading } from "./primitives";
+import { PiArrowRight, PiBriefcase, PiCode, PiMapPin, PiRocketLaunch, PiSparkle } from "react-icons/pi";
 
-const facts = [
-  { label: "Experience", value: "2+ years" },
-  { label: "Currently", value: "Atravelq" },
-  { label: "Based in", value: "India" },
-  { label: "Core stack", value: "MERN + Next.js" },
+import { site } from "@/data/site";
+import { Container, SectionHeader, Tag } from "./primitives";
+
+const glance = [
+  { label: "Experience", value: "2+ years, full-time", Icon: PiBriefcase },
+  { label: "Now", value: `${site.role} at ${site.company}`, Icon: PiRocketLaunch },
+  { label: "Before", value: "Sagmetic Infotech, Mohali\nBrimo Software Solutions, Lucknow", Icon: PiCode },
+  { label: "Focus", value: "Full stack web apps and AI features", Icon: PiSparkle },
+  { label: "Based in", value: site.location, Icon: PiMapPin },
 ];
+
+const expertise = ["Full stack web apps", "REST APIs", "CMS builds", "E-commerce", "AI features"];
+const stack = ["React", "Next.js", "Node.js", "Express", "MongoDB", "WordPress", "Shopify", "OpenAI"];
 
 export default function About() {
   return (
     <section id="about" className="py-24 md:py-32">
-      <Container className="grid gap-12 md:grid-cols-12 md:gap-10">
-        <div className="min-w-0 md:col-span-5">
-          <SectionHeading lead="Where the web" highlight="meets AI." />
-        </div>
-
-        <div className="min-w-0 md:col-span-7 md:pt-3" data-aos="fade-up" data-aos-delay="100">
-          <p className="max-w-[60ch] text-xl leading-relaxed md:text-2xl md:leading-snug">
-            I&apos;m a full stack developer with over two years of building production websites, web
-            apps and online stores.
-          </p>
-          <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-muted">
-            Most of my work runs from React and Next.js front ends to Node.js and Express APIs on
-            MongoDB, MySQL or PostgreSQL. When a project needs a CMS I work in WordPress, Shopify and
-            Strapi, and I build AI features with LLMs, RAG and agentic workflows on OpenAI.
-          </p>
-
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4">
-            {facts.map((fact) => (
-              <div key={fact.label}>
-                <dt className="text-sm text-muted">{fact.label}</dt>
-                <dd className="mt-1 font-medium">{fact.value}</dd>
+      <Container className="grid items-start gap-12 lg:grid-cols-12 lg:gap-14">
+        <aside className="panel order-2 rounded-3xl lg:order-1 lg:col-span-5" data-aos="fade-up">
+          <p className="label border-b border-line px-6 py-4 text-accent-ink">At a glance</p>
+          <dl className="divide-y divide-line">
+            {glance.map(({ label, value, Icon }) => (
+              <div key={label} className="flex gap-4 px-6 py-4">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent-ink">
+                  <Icon className="size-5" />
+                </span>
+                <div className="flex flex-col-reverse justify-center">
+                  <dd className="whitespace-pre-line text-[15px] text-fg/90">{value}</dd>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">{label}</dt>
+                </div>
               </div>
             ))}
           </dl>
+        </aside>
 
-          <div className="mt-8">
-            <AboutSignature />
+        <div className="order-1 lg:order-2 lg:col-span-7">
+          <SectionHeader label="About me" lead="Three teams. One habit:" highlight="ship it end to end." />
+
+          <div className="mt-8 max-w-[62ch] space-y-5 text-[17px] leading-[1.75] text-muted" data-aos="fade-up">
+            <p>
+              I started as a web developer at Brimo Software Solutions in Lucknow, building React web apps,
+              React Native mobile apps and Shopify stores on top of Node.js and MongoDB. At Sagmetic Infotech
+              in Mohali I moved into client work with Next.js and WordPress. Today I&apos;m a full stack
+              developer at Atravelq.
+            </p>
+            <p>Next to the web stack I build AI features with LLMs, RAG and agentic workflows on OpenAI.</p>
           </div>
+
+          <blockquote
+            data-aos="fade-up"
+            className="mt-7 border-l-2 border-accent bg-accent/[0.05] py-3 pl-5 pr-4 text-[17px] italic text-fg/90"
+          >
+            Front end, back end, CMS and AI. Whatever the product needs.
+          </blockquote>
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2" data-aos="fade-up">
+            <div>
+              <p className="label text-[10px]">Core expertise</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {expertise.map((item) => (
+                  <Tag key={item}>{item}</Tag>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="label text-[10px]">Daily stack</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {stack.map((item) => (
+                  <Tag key={item}>{item}</Tag>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" className="btn btn-primary mt-9" data-aos="fade-up">
+            Get in touch
+            <PiArrowRight className="size-4" />
+          </a>
         </div>
       </Container>
     </section>

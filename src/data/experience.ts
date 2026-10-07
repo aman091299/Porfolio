@@ -2,10 +2,14 @@ export type Role = {
   title: string;
   company: string;
   period: string;
-  meta: string;
+  // Year shown on the timeline axis next to this role.
+  year: string;
+  location: string;
   current?: boolean;
-  summary: string;
-  skills: string[];
+  // Accent for this company's card on the timeline.
+  color: string;
+  points: string[];
+  stack: string[];
 };
 
 export const experience: Role[] = [
@@ -13,28 +17,42 @@ export const experience: Role[] = [
     title: "Full Stack Developer",
     company: "Atravelq",
     period: "Apr 2026 - Present",
-    meta: "On-site",
+    year: "2026",
+    location: "On-site",
     current: true,
-    summary:
-      "Building features end to end, from Express.js APIs on the server to Tailwind CSS interfaces in the browser.",
-    skills: ["Express.js", "Tailwind CSS"],
+    color: "#67e3f9",
+    points: [
+      "Building features end to end, from Express.js APIs to Tailwind CSS interfaces",
+      "Owning work across the frontend and the backend",
+    ],
+    stack: ["Express.js", "Tailwind CSS"],
   },
   {
     title: "Web Developer",
     company: "Sagmetic Infotech Pvt. Ltd",
     period: "Aug 2025 - Mar 2026",
-    meta: "Mohali, India",
-    summary:
-      "Built client websites and web apps with Next.js and WordPress, backed by Node.js and Express, plus React Native and Kajabi work.",
-    skills: ["WordPress", "Next.js", "Node.js", "React.js", "React Native", "Express", "Kajabi"],
+    year: "2025",
+    location: "Mohali, India",
+    color: "#7aa2ff",
+    points: [
+      "Client websites and web apps in Next.js and WordPress",
+      "Node.js and Express backends behind them",
+      "React Native and Kajabi work for client projects",
+    ],
+    stack: ["WordPress", "Next.js", "Node.js", "React.js", "React Native", "Express", "Kajabi"],
   },
   {
     title: "Web Developer Associate",
     company: "Brimo Software Solutions",
     period: "Mar 2024 - Feb 2025",
-    meta: "Lucknow, India",
-    summary:
-      "Worked across React web apps, React Native mobile apps and Shopify stores, with Node.js and MongoDB on the backend.",
-    skills: ["React.js", "React Native", "Shopify", "Node.js", "MongoDB"],
+    year: "2024",
+    location: "Lucknow, India",
+    color: "#b79cff",
+    points: [
+      "React web apps and React Native mobile apps",
+      "Shopify storefronts for clients",
+      "Node.js and MongoDB on the backend",
+    ],
+    stack: ["React.js", "React Native", "Shopify", "Node.js", "MongoDB"],
   },
 ];

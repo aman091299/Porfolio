@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* `dark:` follows the same rule as the tokens below: saved choice first, then the system setting. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+/*
+  Theme tokens. Light is the base, dark applies when the visitor's system
+  prefers it or when they pick it with the toggle (data-theme on <html>).
+*/
+:root {
+  --bg: #f4f5f2;
+  --card: #ffffff;
+  --fg: #0e0f11;
+  --muted: #55585f;
+  --line: #dcdfd8;
+  --accent: #c8f04b;
+  --accent-fg: #0e0f11;
+  --accent-ink: #4a6800;
+  --ring: #0e0f11;
+  --shadow: 18 22 12;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0d0f;
+    --card: #141518;
+    --fg: #f1f2ee;
+    --muted: #a3a6ad;
+    --line: #26282d;
+    --accent-ink: #c8f04b;
+    --ring: #c8f04b;
+    --shadow: 0 0 0;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0c0d0f;
+  --card: #141518;
+  --fg: #f1f2ee;
+  --muted: #a3a6ad;
+  --line: #26282d;
+  --accent-ink: #c8f04b;
+  --ring: #c8f04b;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-ink: var(--accent-ink);
+  /* Names the Componentry components expect. */
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  scrollbar-color: var(--line) transparent;
+}
+
+body {
+  /* AOS slides some blocks in from the side; never let that cause sideways scroll. */
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--fg);
+  caret-color: var(--accent-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Lime block behind a word or line, the signature mark of the page. */
+.highlight {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--accent-fg);
+  padding: 0 0.12em;
+  box-decoration-break: clone;
+}
+
+/* Hero entrance: the lime block wipes in after the headline lands. */
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-wipe {
+    animation: wipe-in 0.9s var(--ease-out-expo) 0.55s both;
+  }
+
+  .hero-rise {
+    animation: rise-in 1s var(--ease-out-expo) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,5 +1,13 @@
 import Image from "next/image";
-import { PiArrowRight, PiBrain, PiChatCircleDots, PiCheckCircleFill, PiCode, PiGithubLogo, PiLinkedinLogo } from "react-icons/pi";
+import {
+  PiArrowRight,
+  PiBrain,
+  PiChatCircleDots,
+  PiCheckCircleFill,
+  PiDevices,
+  PiGithubLogo,
+  PiLinkedinLogo,
+} from "react-icons/pi";
 
 import profile from "@/assets/profile.jpg";
 import { site } from "@/data/site";
@@ -8,7 +16,7 @@ import { Container } from "./primitives";
 import Stats from "./Stats";
 
 const highlights = [
-  { label: "Expertise", value: "Full Stack", Icon: PiCode },
+  { label: "Builds", value: "Web & Mobile", Icon: PiDevices },
   { label: "Focus", value: "AI & GenAI", Icon: PiBrain },
 ];
 

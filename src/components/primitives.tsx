@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -61,20 +61,6 @@ export function MonoList({ items, className }: { items: string[]; className?: st
   return (
     <p className={cn("font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-faint", className)}>
       {items.join("  ·  ")}
-    </p>
-  );
-}
-
-export function StatusChip({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <p
-      className={cn(
-        "inline-flex items-center gap-3 rounded-full border border-line bg-panel/60 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted",
-        className,
-      )}
-    >
-      <span aria-hidden="true" className="live-dot size-[7px] rounded-full bg-current text-live" />
-      {children}
     </p>
   );
 }

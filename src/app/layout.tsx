@@ -1,21 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Geist } from "next/font/google";
+import { DM_Mono, Space_Grotesk } from "next/font/google";
 import "aos/dist/aos.css";
 
 import AosInit from "@/components/AosInit";
+import CursorRing from "@/components/CursorRing";
+import Hud from "@/components/Hud";
+import Starfield from "@/components/Starfield";
 import { site } from "@/data/site";
 import "./globals.css";
 
-const geist = Geist({
+const grotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-grotesk",
   display: "swap",
 });
 
-const barlow = Barlow_Condensed({
-  weight: ["700", "800"],
+const dmMono = DM_Mono({
+  weight: ["400", "500"],
   subsets: ["latin"],
-  variable: "--font-barlow",
+  variable: "--font-dm-mono",
   display: "swap",
 });
 
@@ -31,14 +34,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f5f2" },
-    { media: "(prefers-color-scheme: dark)", color: "#0c0d0f" },
-  ],
+  themeColor: "#010202",
 };
 
-// Applies a saved theme choice before first paint so the page never flashes.
-const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+// Runs before first paint so a saved light theme never flashes dark first.
+const themeScript = `try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
 
 export default function RootLayout({
   children,
@@ -46,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${barlow.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${grotesk.variable} ${dmMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <noscript>
@@ -54,7 +54,10 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className="font-sans antialiased">
-        {children}
+        <Starfield />
+        <div className="relative">{children}</div>
+        <Hud />
+        <CursorRing />
         <AosInit />
       </body>
     </html>

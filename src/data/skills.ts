@@ -6,6 +6,8 @@ import {
   SiCss,
   SiDocker,
   SiExpress,
+  SiAndroid,
+  SiApple,
   SiFirebase,
   SiGit,
   SiHtml5,
@@ -54,6 +56,14 @@ export const skillGroups: SkillGroup[] = [
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38bdf8" },
       { name: "HTML5", icon: SiHtml5, color: "#e96a3f" },
       { name: "CSS3", icon: SiCss, color: "#4c8ff0" },
+    ],
+  },
+  {
+    title: "Mobile",
+    skills: [
+      { name: "React Native", icon: SiReact, color: "#61dafb" },
+      { name: "Android", icon: SiAndroid, color: "#3ddc84" },
+      { name: "iOS", icon: SiApple, color: "var(--fg)" },
     ],
   },
   {

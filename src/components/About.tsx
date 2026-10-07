@@ -7,12 +7,12 @@ const glance = [
   { label: "Experience", value: "2+ years, full-time", Icon: PiBriefcase },
   { label: "Now", value: `${site.role} at ${site.company}`, Icon: PiRocketLaunch },
   { label: "Before", value: "Sagmetic Infotech, Mohali\nBrimo Software Solutions, Lucknow", Icon: PiCode },
-  { label: "Focus", value: "Full stack web apps and AI features", Icon: PiSparkle },
+  { label: "Focus", value: "Websites, mobile apps and AI features", Icon: PiSparkle },
   { label: "Based in", value: site.location, Icon: PiMapPin },
 ];
 
-const expertise = ["Full stack web apps", "REST APIs", "CMS builds", "E-commerce", "AI features"];
-const stack = ["React", "Next.js", "Node.js", "Express", "MongoDB", "WordPress", "Shopify", "OpenAI"];
+const expertise = ["Websites", "Mobile apps", "Full stack web apps", "REST APIs", "CMS & e-commerce", "AI features"];
+const stack = ["React", "Next.js", "React Native", "Node.js", "Express", "MongoDB", "WordPress", "Shopify", "OpenAI"];
 
 export default function About() {
   return (
@@ -36,14 +36,14 @@ export default function About() {
         </aside>
 
         <div className="order-1 lg:order-2 lg:col-span-7">
-          <SectionHeader label="About me" lead="Three teams. One habit:" highlight="ship it end to end." />
+          <SectionHeader label="About me" lead="Websites and apps." highlight="Built end to end." />
 
           <div className="mt-8 max-w-[62ch] space-y-5 text-[17px] leading-[1.75] text-muted" data-aos="fade-up">
             <p>
               I started as a web developer at Brimo Software Solutions in Lucknow, building React web apps,
               React Native mobile apps and Shopify stores on top of Node.js and MongoDB. At Sagmetic Infotech
-              in Mohali I moved into client work with Next.js and WordPress. Today I&apos;m a full stack
-              developer at Atravelq.
+              in Mohali I moved into client work with Next.js and WordPress. Today I&apos;m a senior full
+              stack developer at Atravelq, and I build both websites and mobile apps.
             </p>
             <p>Next to the web stack I build AI features with LLMs, RAG and agentic workflows on OpenAI.</p>
           </div>
